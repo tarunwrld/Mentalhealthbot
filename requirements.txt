@@ -1,6 +1,6 @@
 scikit-learn
 pandas
 streamlit
-langchain-community
+pip install -U langchain-community
 langchain
-huggingface_hub
+pip install huggingface_hub
