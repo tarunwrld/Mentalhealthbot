@@ -52,18 +52,20 @@ def main():
     st.button("Ask")
     if question:
         if st.button:
-            template = """Question: {question}
-                    Answer: Lets think step by step I'm a smart assistant My work is to provide efficient answer developed by Mr. Tarun"""
+            clf = load(repo_id)
+            c = clf.predict([question])[0]
+            # template = """Question: {question}
+            #         Answer: Lets think step by step I'm a smart assistant My work is to provide efficient answer developed by Mr. Tarun"""
 
-            prompt = PromptTemplate(template=template, input_variables=["question"])
-            llm = HuggingFaceHub(
-                repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 500}
-            )
-            llm_chain = LLMChain(prompt=prompt, llm=llm)
+            # prompt = PromptTemplate(template=template, input_variables=["question"])
+            # llm = HuggingFaceHub(
+            #     repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 500}
+            # )
+            # llm_chain = LLMChain(prompt=prompt, llm=llm)
 
-            generated_text = llm_chain.run(question)
+            # generated_text = llm_chain.run(question)
             with st.chat_message("user"):
-                st.write(generated_text)
+                st.write(c)
         # else:
         #     st.warning("Oops! Something went wrong. Please try again.")
 if __name__ == "__main__":
