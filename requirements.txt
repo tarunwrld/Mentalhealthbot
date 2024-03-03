@@ -1,5 +1,6 @@
 scikit-learn
-streamlit
 pandas
+streamlit
+langchain-community
 langchain
 huggingface_hub
