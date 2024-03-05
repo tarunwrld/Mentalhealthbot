@@ -7,14 +7,6 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from joblib import load
 import os
-from langchain.chains.question_answering import load_qa_chain
-from langchain.chains import LLMChain
-from langchain.prompts import PromptTemplate
-from langchain.llms import HuggingFaceHub
-
-API_TOKEN = os.environ["HUGGINGFACEHUB_API_TOKEN"] = os.getenv("HUGGINGFACETOKEN2")
-
-headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
 def main():
     # Set up Streamlit page
@@ -30,7 +22,7 @@ def main():
     page_bg_img = '''
       <style>
       [data-testid = "stAppViewContainer"] {
-      background-image: url("https://cdn.dribbble.com/userupload/12006881/file/original-27c0ab401cb6cc7abe6a4418264d08ee.jpg?crop=0x0-2000x1500&resize=400x300&vertical=center");
+      background-image: url("https://cdn.dribbble.com/users/675405/screenshots/16991196/media/99c347f1e0f663a5cc51815d2efcd543.png?resize=800x600&vertical=center");
       background-size: cover;
       }
       [data-testid = "stToolbar"] {
@@ -46,24 +38,14 @@ def main():
     
     st.write("The answer generated is not guaranteed to be right")
 
-    repo_id = "chomu99/mentalhealthbot"
+    # repo_id = "./mental2.joblib"
 
     question = st.text_input("Write Something Here: ")
     st.button("Ask")
     if question:
         if st.button:
-            clf = load(repo_id)
+            clf = load("./mental4.joblib")
             c = clf.predict([question])[0]
-            # template = """Question: {question}
-            #         Answer: Lets think step by step I'm a smart assistant My work is to provide efficient answer developed by Mr. Tarun"""
-
-            # prompt = PromptTemplate(template=template, input_variables=["question"])
-            # llm = HuggingFaceHub(
-            #     repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 500}
-            # )
-            # llm_chain = LLMChain(prompt=prompt, llm=llm)
-
-            # generated_text = llm_chain.run(question)
             with st.chat_message("user"):
                 st.write(c)
         # else:
