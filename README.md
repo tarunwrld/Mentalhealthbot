@@ -1,7 +1,7 @@
 
 # MentalIllness Bot
 
-The MentalIllness Bot is an AI-powered chatbot designed to provide a safe and supportive space for individuals to discuss mental health concerns such as anxiety, depression, and stress. The bot uses machine learning algorithms to understand and respond to user input in a compassionate and empathetic manner. It offers resources, coping strategies, and referrals to mental health professionals when necessary. The MentalIllness Bot aims to reduce the stigma surrounding mental illness and promote self-care and well-being.
+The MentalIllness Bot is a chatbot designed to provide a safe and supportive space for individuals to discuss mental health concerns such as anxiety, depression, and stress. The bot uses machine learning algorithms to understand and respond to user input in a compassionate and empathetic manner. It offers resources, coping strategies, and referrals to mental health professionals when necessary. The MentalIllness Bot aims to reduce the stigma surrounding mental illness and promote self-care and well-being.
 
 
 ## Deployment
