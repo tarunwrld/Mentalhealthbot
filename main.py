@@ -7,6 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from joblib import load
 import os
+import time
 
 def main():
     # Set up Streamlit page
@@ -14,7 +15,7 @@ def main():
             <style>
             MainMenu {visibility: hidden;}
             footer {visibility: hidden;}
-            # header {visibility: hidden;}
+            header {visibility: hidden;}
             </style>
             """
     st.markdown(hide_st_style, unsafe_allow_html=True)
@@ -22,7 +23,7 @@ def main():
     page_bg_img = '''
       <style>
       [data-testid = "stAppViewContainer"] {
-      background-image: url("https://cdn.dribbble.com/users/675405/screenshots/16991196/media/99c347f1e0f663a5cc51815d2efcd543.png?resize=800x600&vertical=center");
+      background-image: url("https://e1.pxfuel.com/desktop-wallpaper/64/802/desktop-wallpaper-dark-night-mountains-minimalist-simple-backgrounds-black-oled.jpg");
       background-size: cover;
       }
       [data-testid = "stToolbar"] {
@@ -32,24 +33,58 @@ def main():
       '''
 
     st.markdown(page_bg_img, unsafe_allow_html=True)
+    # with st.container():
     st.title("Mental Illness Bot!!")
 
-    st.subheader("This bot is trained on the dataset available on kaggle and hugging face the bot cannot think it can only predict")
+    st.text("This bot is trained on the Datasets available on Kaggle and Hugging-Face the bot cannot think it only can predict")
     
-    st.write("The answer generated is not guaranteed to be right")
+    st.caption("_The model is not optimized properly. Therefore, it cannot guarantee the accuracy of the generated answers._")
 
-    # repo_id = "./mental2.joblib"
+    st.divider()
 
-    question = st.text_input("Write Something Here: ")
-    st.button("Ask")
+    greet_text = """Hello!! How can I assist you?"""
+
+    def greet():
+        for word in greet_text.split():
+            yield word + " "
+            time.sleep(0.1)
+
+    repo_id = "./mental5.joblib"
+    clf = load(repo_id)
+
+    def call(question):
+        d = clf.predict([question])[0]
+        return d
+    
+    def model(question):
+        c = call(question)
+        for word in c.split():
+            yield word + " "
+            time.sleep(0.1)
+        
+
+    question = st.chat_input("Write Something Here: ")
     if question:
-        if st.button:
-            clf = load("./mental4.joblib")
-            c = clf.predict([question])[0]
+        with st.status("In Progress..."):
+            st.write("Loading Model")
+            time.sleep(1)
+            st.write("Searching for data...")
+            time.sleep(1)
+        if question.lower() in ["hi","hy", "yo", "hello", "how are you", "hola", "heya", "hey"]:
             with st.chat_message("user"):
-                st.write(c)
-        # else:
-        #     st.warning("Oops! Something went wrong. Please try again.")
+                st.write_stream(('You' + question,))
+            with st.chat_message("assistant"):
+                st.write_stream(greet)
+        else:
+            with st.chat_message("user"):
+                st.write_stream(('You' + question,))
+            with st.chat_message("assistant"):
+                st.write_stream(model(question))
+            # c = clf.predict([question])[0]
+            # st.write(c)
+    else:
+        # st.warning("Oops! Something went wrong. Please try again.")
+        st.write("""Try asking What is Panic Attack , What is Stress , What is mental illness""")
+
 if __name__ == "__main__":
     main()
-
